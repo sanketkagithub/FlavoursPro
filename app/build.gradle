@@ -17,27 +17,87 @@ android {
         }
     }
 
+// Specifies two flavor dimensions.
+    flavorDimensions "freeV,paidV"
 
-
-  flavorDimensions "free,paid"
-    productFlavors{
-
-        free{
-            applicationId "com.journaldev.androidproductflavors.free"
+    productFlavors {
+        freeV {
+            // Assigns this product flavor to the "tier" flavor dimension. Specifying
+            // this property is optional if you are using only one dimension.
+            buildConfigField("String", "BASE_MAIN_URL", "\"http://www.givmebikeFree.com\"");
         }
 
-        paid{
-            applicationId "com.journaldev.androidproductflavors.paid"
+        paidV {
+            buildConfigField("String", "BASE_MAIN_URL", "\"http://www.givmebikePaid.com\"");
         }
+
     }
 
+    /* sourceSets {
+        main {
+            //....
+            res.srcDirs = ['/src/main/res']
+
+        }
+        freeV {
+            res.srcDirs = ['/src/flavor1/res', '/src/commonA/res']
+        }
+        paidV {
+            res.srcDirs = ['/src/flavor2/res', '/src/commonA/res']
+        }
+        //.....other flavors
+    }*/
+
+    /*sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            res.srcDirs = ['res']
+            java.srcDirs = ['src', '../3party/Alohalytics/src/android/java', 'ttsearch/jni/out']
+            assets.srcDirs = ['assets', 'flavors/mwm-ttf-assets']
+            jniLibs.srcDirs = ['libs', 'jniLibs', 'ttsearch/libs']
+        }
+        freeV {
+            manifest.srcFile 'flavor'
+            assets.srcDirs = ['flavor/assets']
+            res.srcDirs = ['flavor/res']
+            res.srcDirs = ['flavor/res']
+        }
+    }*/
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        implementation 'com.android.support:appcompat-v7:28.0.0'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    }
+
+/*sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/free/java']
+            res.srcDirs =['src/main/res', 'src/free/res']
+} }*/
+
+
+
+
+
+
+    sourceSets {
+        main {
+           // java.srcDirs = ['src/main/java', 'src/paid/java','src/free/java']
+            java.srcDirs = ['src/main/java', 'src/paid/java']
+            res.srcDirs = ['src/main/res', 'src/paid/res']
+            manifest.srcFile 'src\\paid\\AndroidManifest.xml'
+           // manifest.srcFile 'src\\main\\AndroidManifest.xml'
+          //  manifest.srcFile 'app\\src\\paid\\AndroidManifest.xml'
+           // manifest.srcFile 'app\\src\\main\\AndroidManifest.xml'
+            /* java.srcDirs = ['src/paid/java']
+            res.srcDirs = ['src/paid/res']*/
+        }
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
